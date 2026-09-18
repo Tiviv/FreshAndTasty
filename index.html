@@ -34,6 +34,7 @@
   "@context": "https://schema.org",
   "@type": "GroceryStore",
   "name": "Свежо и Вкусно",
+  "telephone": "+359878524187",
   "alternateName": "Fresh & Tasty",
   "description": "Магазин за пресни плодове, зеленчуци и фрешове с доставки за бизнес клиенти.",
   "url": "https://tiviv.github.io/FreshAndTasty/",
@@ -140,6 +141,19 @@
   }
   .nav-cta:hover { background: var(--orange-deep) !important; }
   .nav-cta::after { display: none !important; }
+  /* Burger button — hidden until the nav links collapse */
+  .nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    padding: 10px 6px; margin: -10px -6px -10px 0; line-height: 0;
+  }
+  .nav-toggle span {
+    display: block; width: 26px; height: 3px; border-radius: 2px;
+    background: var(--green); transition: transform 0.25s, opacity 0.2s;
+  }
+  .nav-toggle span + span { margin-top: 5px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
   /* HERO */
   .hero {
@@ -335,7 +349,18 @@
   footer p { font-size: 13px; }
 
   @media (max-width: 768px) {
-    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--white); padding: 4px 5% 16px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    nav.menu-open .nav-links { display: flex; }
+    .nav-links a { display: block; padding: 15px 0; font-size: 16px; }
+    .nav-links a::after { display: none; }
+    .nav-links .nav-cta { text-align: center; margin-top: 10px; padding: 14px 20px !important; }
     .hero { flex-direction: column; padding: 40px 5% 60px; min-height: auto; }
     .hero-logo-img { width: 240px; height: 240px; }
     .hero-content { text-align: center; }
@@ -363,7 +388,11 @@
       <span class="tagline" data-bg="Плодове и зеленчуци" data-en="Fruits & Vegetables">Плодове и зеленчуци</span>
     </div>
   </a>
-  <ul class="nav-links">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links"
+          aria-label="Меню" data-label-bg="Меню" data-label-en="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#instore" data-bg="Магазин" data-en="In Store">Магазин</a></li>
     <li><a href="#delivery" data-bg="Доставки" data-en="Delivery">Доставки</a></li>
     <li><a href="#contact" data-bg="Контакти" data-en="Contact">Контакти</a></li>
@@ -486,7 +515,7 @@
       <div class="contact-item">
         <div class="contact-icon">📞</div>
         <div><h4 data-bg="ТЕЛЕФОН" data-en="PHONE">ТЕЛЕФОН</h4>
-          <p class="contact-placeholder" data-bg="(скоро)" data-en="(coming soon)">(скоро)</p></div>
+          <p><a href="tel:+359878524187">+359 87 852 4187</a></p></div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">✉️</div>
@@ -538,9 +567,23 @@ function setLang(lang) {
     if (!t) return;
     if (el.tagName==='H1'||el.tagName==='H2') el.innerHTML=t; else el.textContent=t;
   });
+  document.querySelectorAll('[data-label-bg]').forEach(el => {
+    el.setAttribute('aria-label', el.getAttribute('data-label-' + lang));
+  });
   document.getElementById('btn-bg').classList.toggle('active', lang==='bg');
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
 }
+const nav = document.querySelector('nav');
+const navToggle = document.querySelector('.nav-toggle');
+function setMenu(open) {
+  nav.classList.toggle('menu-open', open);
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+navToggle.addEventListener('click', () => setMenu(!nav.classList.contains('menu-open')));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+window.addEventListener('resize', () => { if (window.innerWidth > 768) setMenu(false); });
+
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
