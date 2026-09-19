@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Благодарим | Свежо и Вкусно</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#2D7D32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F5A623;
+    --orange-deep: #E8901A;
+    --green: #2D7D32;
+    --dark: #1A2E1A;
+    --cream: #FFFBF2;
+    --text-light: #5a7a5b;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, var(--dark) 0%, #1e4620 50%, #2d6630 100%);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 40px 5%; text-align: center;
+  }
+  .card {
+    background: var(--cream); border-radius: 24px;
+    padding: 48px 40px; max-width: 480px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .card img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 16px; }
+  h1 {
+    font-family: 'Playfair Display', serif; font-size: 32px;
+    color: var(--green); margin-bottom: 14px;
+  }
+  p { font-size: 17px; color: var(--text-light); line-height: 1.6; margin-bottom: 28px; }
+  a.back {
+    background: var(--orange); color: var(--dark);
+    padding: 14px 32px; border-radius: 30px; font-weight: 800;
+    font-size: 15px; text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  a.back:hover { background: var(--orange-deep); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="assets/logo.png" width="700" height="700" alt="Свежо и Вкусно">
+    <h1>Благодарим!</h1>
+    <p>Получихме вашето съобщение и ще се свържем с вас възможно най-скоро.</p>
+    <a class="back" href="./">Обратно към сайта</a>
+  </div>
+</body>
+</html>

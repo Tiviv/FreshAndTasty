@@ -35,6 +35,7 @@
   "@type": "GroceryStore",
   "name": "Свежо и Вкусно",
   "telephone": "+359878524187",
+  "email": "vkusno.svejo@gmail.com",
   "alternateName": "Fresh & Tasty",
   "description": "Магазин за пресни плодове, зеленчуци и фрешове с доставки за бизнес клиенти.",
   "url": "https://tiviv.github.io/FreshAndTasty/",
@@ -331,6 +332,41 @@
   .map-link-box .map-title { font-weight: 800; color: var(--green); font-size: 14px; display: block; }
   .map-link-box .map-addr { font-size: 13px; color: var(--text-light); font-weight: 600; display: block; }
 
+  /* CONTACT FORM */
+  .contact-form-wrap {
+    max-width: 680px; margin: 48px auto 0;
+    background: var(--white); border-radius: 20px;
+    padding: 32px; box-shadow: var(--shadow-card);
+  }
+  .contact-form-wrap h3 {
+    font-family: 'Playfair Display', serif; font-size: 24px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .form-intro { font-size: 15px; color: var(--text-light); margin-bottom: 24px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label {
+    font-size: 13px; font-weight: 800; color: var(--text-light);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .form-field input, .form-field textarea {
+    font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--text);
+    background: var(--cream); border: 2px solid rgba(45,125,50,0.15);
+    border-radius: 12px; padding: 12px 14px; width: 100%;
+    transition: border-color 0.2s;
+  }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+  .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--orange); }
+  .form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
+  .form-actions button:disabled { opacity: 0.6; cursor: default; }
+  .form-status { font-size: 15px; font-weight: 700; }
+  .form-status.ok { color: var(--green); }
+  .form-status.err { color: #C0392B; }
+  /* spam trap: a field only a bot would fill in */
+  .form-honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  /* FOOTER */
   footer {
     background: var(--dark); color: rgba(255,255,255,0.6);
     padding: 36px 5%; display: flex;
@@ -367,6 +403,8 @@
     .hero-desc { margin: 0 auto 36px; }
     .hero-btns { justify-content: center; }
     .contact-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .contact-form-wrap { padding: 24px 20px; margin-top: 32px; }
+    .form-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; text-align: center; }
     section { padding: 60px 5%; }
   }
@@ -521,7 +559,7 @@
       <div class="contact-item">
         <div class="contact-icon">✉️</div>
         <div><h4 data-bg="ИМЕЙЛ" data-en="EMAIL">ИМЕЙЛ</h4>
-          <p class="contact-placeholder" data-bg="(скоро)" data-en="(coming soon)">(скоро)</p></div>
+          <p><a href="mailto:vkusno.svejo@gmail.com">vkusno.svejo@gmail.com</a></p></div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">🕐</div>
@@ -542,6 +580,39 @@
         </div>
       </a>
     </div>
+  </div>
+
+  <div class="contact-form-wrap">
+    <h3 data-bg="Изпратете запитване" data-en="Send an enquiry">Изпратете запитване</h3>
+    <p class="form-intro" data-bg="Напишете ни и ще се свържем с вас възможно най-скоро." data-en="Write to us and we will get back to you as soon as we can.">Напишете ни и ще се свържем с вас възможно най-скоро.</p>
+    <form id="contact-form" action="https://formsubmit.co/vkusno.svejo@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Ново запитване от сайта">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://tiviv.github.io/FreshAndTasty/thanks.html">
+      <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="cf-name" data-bg="ИМЕ" data-en="NAME">ИМЕ</label>
+          <input id="cf-name" name="Име" type="text" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="cf-email" data-bg="ИМЕЙЛ" data-en="EMAIL">ИМЕЙЛ</label>
+          <input id="cf-email" name="Имейл" type="email" autocomplete="email" required>
+        </div>
+        <div class="form-field full">
+          <label for="cf-phone" data-bg="ТЕЛЕФОН (по желание)" data-en="PHONE (optional)">ТЕЛЕФОН (по желание)</label>
+          <input id="cf-phone" name="Телефон" type="tel" autocomplete="tel">
+        </div>
+        <div class="form-field full">
+          <label for="cf-message" data-bg="СЪОБЩЕНИЕ" data-en="MESSAGE">СЪОБЩЕНИЕ</label>
+          <textarea id="cf-message" name="Съобщение" required></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" type="submit" data-bg="Изпрати" data-en="Send">Изпрати</button>
+        <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -568,12 +639,53 @@ function setLang(lang) {
     if (!t) return;
     if (el.tagName==='H1'||el.tagName==='H2') el.innerHTML=t; else el.textContent=t;
   });
+  const status = document.getElementById('form-status');
+  if (status) { status.textContent = ''; status.className = 'form-status'; }
   document.querySelectorAll('[data-label-bg]').forEach(el => {
     el.setAttribute('aria-label', el.getAttribute('data-label-' + lang));
   });
   document.getElementById('btn-bg').classList.toggle('active', lang==='bg');
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
 }
+const FORM_MESSAGES = {
+  bg: {
+    sending: 'Изпращане…',
+    ok: 'Благодарим! Съобщението е изпратено.',
+    err: 'Съобщението не можа да бъде изпратено. Пишете ни на vkusno.svejo@gmail.com.'
+  },
+  en: {
+    sending: 'Sending…',
+    ok: 'Thank you! Your message has been sent.',
+    err: 'The message could not be sent. Please email us at vkusno.svejo@gmail.com.'
+  }
+};
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+contactForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const words = FORM_MESSAGES[document.documentElement.lang === 'en' ? 'en' : 'bg'];
+  const button = contactForm.querySelector('button[type="submit"]');
+  button.disabled = true;
+  formStatus.className = 'form-status';
+  formStatus.textContent = words.sending;
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/vkusno.svejo@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+    });
+    if (!res.ok) throw new Error(res.status);
+    contactForm.reset();
+    formStatus.className = 'form-status ok';
+    formStatus.textContent = words.ok;
+  } catch (err) {
+    formStatus.className = 'form-status err';
+    formStatus.textContent = words.err;
+  } finally {
+    button.disabled = false;
+  }
+});
+
 const nav = document.querySelector('nav');
 const navToggle = document.querySelector('.nav-toggle');
 function setMenu(open) {
