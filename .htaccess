@@ -6,3 +6,6 @@ RewriteEngine On
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://svejoivkusno.com%{REQUEST_URI} [L,R=301]
+
+# The site may be a git checkout inside public_html: never serve its git data.
+RedirectMatch 404 /\.git
