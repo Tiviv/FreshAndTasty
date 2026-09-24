@@ -1,11 +1,11 @@
-# Uploads the site to the jump.bg hosting (public_html) on every push to main.
+# Uploads the site to the jump.bg hosting (public_html), only when started by hand:
+# GitHub -> Actions -> Deploy to jump.bg -> Run workflow. Pushes to main do not
+# touch the live site; they only update the preview at tiviv.github.io/FreshAndTasty.
 # Needs three repository secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
 # Until they exist, the upload step is skipped instead of failing.
 name: Deploy to jump.bg
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
