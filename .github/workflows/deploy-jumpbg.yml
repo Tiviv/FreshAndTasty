@@ -1,0 +1,42 @@
+# Uploads the site to the jump.bg hosting (public_html) on every push to main.
+# Needs three repository secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+# Until they exist, the upload step is skipped instead of failing.
+name: Deploy to jump.bg
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-jumpbg
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload over FTPS
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            .nojekyll
+
+      - name: Note missing secrets
+        if: env.FTP_SERVER == ''
+        run: echo "FTP secrets are not set yet, so nothing was uploaded."

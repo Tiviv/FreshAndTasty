@@ -1,0 +1,8 @@
+# Serve the static page first, ahead of any default page left by the host.
+DirectoryIndex index.html
+
+# Send every visitor to https://svejoivkusno.com (no www, always HTTPS).
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://svejoivkusno.com%{REQUEST_URI} [L,R=301]

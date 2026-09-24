@@ -27,7 +27,7 @@
 3. При **Branch** изберете `main` и папка `/ (root)`, после **Save**.
 
 След минута-две сайтът е на адрес:
-<https://tiviv.github.io/FreshAndTasty/>
+<https://svejoivkusno.com/>
 
 Всеки следващ push към `main` обновява сайта автоматично.
 
